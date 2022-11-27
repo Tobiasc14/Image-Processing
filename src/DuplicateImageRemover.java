@@ -42,7 +42,7 @@ public class DuplicateImageRemover {
 
 					try {
 						tempImage = ImageIO.read(listOfFiles[i]);
-						
+						//Use this function instead of all the blue stuff below it, its much faster and easier to follow
 						if(SameImage(baseImage,tempImage)) {
 							System.out.println("Found duplicate Image, deleting " + file.getAbsolutePath());
 							listOfFiles[i].delete();
@@ -115,11 +115,16 @@ public class DuplicateImageRemover {
 		}
 		System.out.println("Number of Files Removed: " + numFilesRemoved);
 	}
-
+//Function that actually checks if two images are the same or different
 	public static boolean SameImage(BufferedImage baseImage, BufferedImage tempImage) {
+		
+		//First just checks their dimensions, if those are different it can't be the same image
 		if(baseImage.getHeight() != (tempImage.getHeight()) || baseImage.getWidth() != (tempImage.getWidth())){
 			return false;
 		}
+		//If images the same size, iterates through and compares each pixel value, returning false as soon as it finds one that
+		//differs between the two images. This is much faster than collecting every pixel value, and then comparing the two
+		//arrays which is what I originally did
 		int pos = 0;
 		for (int y = 0; y < baseImage.getHeight(); y++){
 			for (int x = 0; x < baseImage.getWidth(); x++){
@@ -128,6 +133,8 @@ public class DuplicateImageRemover {
 				}
 			}
 		}
+		//If you made it through the entirety of both images without finding a difference, they must be
+		//The same image, so return true		
 		return true;
 
 
