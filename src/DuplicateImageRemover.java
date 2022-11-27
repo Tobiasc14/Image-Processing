@@ -120,7 +120,7 @@ public class DuplicateImageRemover {
 		}
 		return true;
 		
-		//changing for gits sake
+		//changing for gits sake again
 		
 	}
 	
