@@ -39,17 +39,27 @@ public class DuplicateImageRemover {
 
 				//Iterate through the entire list of images again (Not efficient but easier to code)
 				for(int i = fileNumber+1; i< listOfFiles.length; i++) {	
-					
+
 					try {
 						tempImage = ImageIO.read(listOfFiles[i]);
+						
+						if(SameImage(baseImage,tempImage)) {
+							System.out.println("Found duplicate Image, deleting " + file.getAbsolutePath());
+							listOfFiles[i].delete();
+							//i--;
+							numFilesRemoved++;
+						}
+						
 						//numSizeChecks++;
 						//For each image, check to see if the heights and widths are the same. If they aren't,
 						//Images can't be the same, so skip and move to the next one 
+
+						/**
 						if((baseImage.getHeight()) == (tempImage.getHeight()) && (baseImage.getWidth()) == (tempImage.getWidth())){
 							//System.out.println("Found images of same size");
 							//System.out.println(baseImage.getWidth()*baseImage.getHeight());
 							//System.out.println(tempImage.getWidth()*tempImage.getHeight());
-							
+
 							//Makes arrays to store the red, green, and blue pixel values
 							int[] basePixelsR = new int[baseImage.getWidth()*baseImage.getHeight()];
 							int[] basePixelsG = new int[baseImage.getWidth()*baseImage.getHeight()];
@@ -57,7 +67,7 @@ public class DuplicateImageRemover {
 							int[] tempPixelsR = new int[tempImage.getWidth()*tempImage.getHeight()];
 							int[] tempPixelsG = new int[tempImage.getWidth()*tempImage.getHeight()];
 							int[] tempPixelsB = new int[tempImage.getWidth()*tempImage.getHeight()];
-							
+
 							//Iterates through every pixel, recording its RGB values in the arrays
 							int pos = 0;
 							for (int y = 0; y < baseImage.getHeight(); y++){
@@ -81,13 +91,13 @@ public class DuplicateImageRemover {
 								listOfFiles[i].delete();
 								i--;
 								numFilesRemoved++;
-								
+
 							}
 						}
 						else {
 							//Image heights/widths aren't the same, move to the next image
-							
-						}
+
+						}**/
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -97,16 +107,16 @@ public class DuplicateImageRemover {
 			}catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				
+
 			}
-			
+
 			fileNumber++;
 
 		}
 		System.out.println("Number of Files Removed: " + numFilesRemoved);
 	}
-	
-	public boolean SameImage(BufferedImage baseImage, BufferedImage tempImage) {
+
+	public static boolean SameImage(BufferedImage baseImage, BufferedImage tempImage) {
 		if(baseImage.getHeight() != (tempImage.getHeight()) || baseImage.getWidth() != (tempImage.getWidth())){
 			return false;
 		}
@@ -119,15 +129,15 @@ public class DuplicateImageRemover {
 			}
 		}
 		return true;
-		
-		//changing for gits sake again
-		
+
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }
 
 
