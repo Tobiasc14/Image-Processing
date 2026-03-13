@@ -1,9 +1,6 @@
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-
 import javax.imageio.ImageIO;
 
 public class DuplicateImageRemover {
@@ -22,9 +19,7 @@ public class DuplicateImageRemover {
 		//Declaring variables to store the images to be compared
 		BufferedImage baseImage;
 		BufferedImage tempImage;
-		//Declaring colors to store the pixel RGB values
-		Color baseColor;
-		Color tempColor;	
+			
 		//First, iterate through each image in the specified folder
 		for (File file : listOfFiles) {
 			//Print progress metrics to console
@@ -43,10 +38,10 @@ public class DuplicateImageRemover {
 					try {
 						tempImage = ImageIO.read(listOfFiles[i]);
 						//Use this function instead of all the blue stuff below it, its much faster and easier to follow
-						if(SameImage(baseImage,tempImage)) {
-							System.out.println("Found duplicate Image, deleting " + file.getAbsolutePath());
+						if(sameImage(baseImage,tempImage)) {
+							System.out.println("Found duplicate Image, deleting " + listOfFiles[i].getAbsolutePath());
 							listOfFiles[i].delete();
-							//i--;
+							
 							numFilesRemoved++;
 						}
 						
@@ -116,9 +111,12 @@ public class DuplicateImageRemover {
 		System.out.println("Number of Files Removed: " + numFilesRemoved);
 	}
 //Function that actually checks if two images are the same or different
-	public static boolean SameImage(BufferedImage baseImage, BufferedImage tempImage) {
+	public static boolean sameImage(BufferedImage baseImage, BufferedImage tempImage) {
 		
 		//First just checks their dimensions, if those are different it can't be the same image
+		if(baseImage == null || tempImage == null){
+			return false;
+		}
 		if(baseImage.getHeight() != (tempImage.getHeight()) || baseImage.getWidth() != (tempImage.getWidth())){
 			return false;
 		}
