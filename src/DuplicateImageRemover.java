@@ -9,7 +9,7 @@ public class DuplicateImageRemover {
 		// TODO Auto-generated method stub
 		//Made a temporary desktop folder so original images are safe from accidental deletion
 		//Accessing that temporary directory and making array containing all files within
-		File baseFilePath = new File("C:/Users/hjctj/Desktop/JavaPictureComparer");
+		File baseFilePath = new File("/home/tobias/Pictures/JavaPictureTesting/");
 		File[] listOfFiles = baseFilePath.listFiles();
 		//Some variables for printing progress metrics:
 		int total = listOfFiles.length;
@@ -95,13 +95,15 @@ public class DuplicateImageRemover {
 						}**/
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
+						System.out.println("Attempted to read deleted file/file doesn't exist");
 					}
 				}
 
 			}catch (IOException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("Attempted to read deleted file/file doesn't exist");
+				//e1.printStackTrace();
 
 			}
 
